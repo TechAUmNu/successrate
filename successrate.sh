@@ -36,7 +36,7 @@ audit_failed_crit=$($LOG 2>&1 | grep GET_AUDIT | grep failed | grep exist -c)
 #Ratio of Successful to Failed Audits
 if [ $(($audit_success+$audit_failed_crit+$audit_failed_warn)) -ge 1 ]
 then
-	audit_successrate=$( $audit_success / ( $audit_success + $audit_failed_crit + $audit_failed_warn )) * 100
+	audit_successrate=$( $audit_success / ( $audit_success + $audit_failed_crit + $audit_failed_warn ) * 100) 
 else
 	audit_successrate=0.000
 fi
@@ -78,7 +78,7 @@ dl_failed=$($LOG 2>&1 | grep '"GET"' | grep 'download failed' -c)
 #Ratio of Successful Downloads
 if [ $(($dl_success+$dl_failed+$dl_canceled)) -ge 1 ]
 then
-	dl_ratio=$( $dl_success / ( $dl_success + $dl_failed + $dl_canceled )) * 100
+	dl_ratio=$( $dl_success / ( $dl_success + $dl_failed + $dl_canceled )* 100) 
 else
 	dl_ratio=0.000
 fi
@@ -96,7 +96,7 @@ put_failed=$($LOG 2>&1 | grep '"PUT"' | grep 'upload failed' -c)
 #Ratio of Rejections
 if [ $(($put_success+$put_rejected+$put_canceled+$put_failed)) -ge 1 ]
 then
-	put_accept_ratio=$( ($put_success + $put_canceled + $put_failed) / ( $put_rejected + $put_success + $put_canceled + $put_failed )) * 100
+	put_accept_ratio=$( ($put_success + $put_canceled + $put_failed) / ( $put_rejected + $put_success + $put_canceled + $put_failed )* 100) 
 else
 	put_accept_ratio=0.000
 fi
@@ -117,7 +117,7 @@ fi
 #Ratio of Success
 if [ $(($put_success+$put_failed+$put_canceled+$put_failed)) -ge 1 ]
 then
-	put_ratio=$( $put_success / ( $put_success + $put_failed + $put_canceled )) * 100
+	put_ratio=$( $put_success / ( $put_success + $put_failed + $put_canceled )* 100) 
 else
 	put_ratio=0.000
 fi
@@ -146,7 +146,7 @@ get_repair_canceled=$($LOG 2>&1 | grep GET_REPAIR | grep 'download canceled' -c)
 #Ratio of Success GET_REPAIR
 if [ $(($get_repair_success+$get_repair_failed+$get_repair_canceled)) -ge 1 ]
 then
-	get_repair_ratio=$( $get_repair_success / ( $get_repair_success + $get_repair_failed + $get_repair_canceled )) * 100
+	get_repair_ratio=$( $get_repair_success / ( $get_repair_success + $get_repair_failed + $get_repair_canceled )* 100) 
 else
 	get_repair_ratio=0.000
 fi
@@ -160,21 +160,21 @@ put_repair_failed=$($LOG 2>&1 | grep PUT_REPAIR | grep 'upload failed' -c)
 #Ratio of Fail PUT_REPAIR
 if [ $(($put_repair_success+$put_repair_failed+$put_repair_canceled)) -ge 1 ]
 then
-	put_repair_failratio=$( $put_repair_failed / ( $put_repair_failed + $put_repair_success + $put_repair_canceled )) * 100
+	put_repair_failratio=$( $put_repair_failed / ( $put_repair_failed + $put_repair_success + $put_repair_canceled )* 100) 
 else
 	put_repair_failratio=0.000
 fi
 #Ratio of Cancel PUT_REPAIR
 if [ $(($put_repair_success+$put_repair_failed+$put_repair_canceled)) -ge 1 ]
 then
-	put_repair_canratio=$( $put_repair_canceled / ( $put_repair_canceled + $put_repair_success + $put_repair_failed )) * 100
+	put_repair_canratio=$( $put_repair_canceled / ( $put_repair_canceled + $put_repair_success + $put_repair_failed )* 100) 
 else
 	put_repair_canratio=0.000
 fi
 #Ratio of Success PUT_REPAIR
 if [ $(($put_repair_success+$put_repair_failed+$put_repair_canceled)) -ge 1 ]
 then
-	put_repair_ratio=$( $put_repair_success / ( $put_repair_success + $put_repair_failed + $put_repair_canceled )) * 100
+	put_repair_ratio=$( $put_repair_success / ( $put_repair_success + $put_repair_failed + $put_repair_canceled )* 100) 
 else
 	put_repair_ratio=0.000
 fi
@@ -186,14 +186,14 @@ delete_failed=$($LOG 2>&1 | grep PUT_REPAIR | grep 'delete failed' -c)
 #Ratio of Fail delete
 if [ $(($delete_success+$delete_failed)) -ge 1 ]
 then
-	delete_failratio=$($delete_failed / ( $delete_success + $delete_failed )) * 100
+	delete_failratio=$($delete_failed / ( $delete_success + $delete_failed )* 100) 
 else
 	delete_failratio=0.000
 fi
 #Ratio of Success delete
 if [ $(($delete_success+$delete_failed)) -ge 1 ]
 then
-	delete_ratio=$($delete_success / ( $delete_success + $delete_failed )) * 100
+	delete_ratio=$($delete_success / ( $delete_success + $delete_failed )* 100) 
 else
 	delete_ratio=0.000
 fi
