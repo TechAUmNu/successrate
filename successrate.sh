@@ -27,7 +27,7 @@ fi
 
 #Node Success Rates
 
-echo -e "\e[96m========== AUDIT ============== \e[0m"
+
 #count of successful audits
 audit_success=$($LOG 2>&1 | grep GET_AUDIT | grep downloaded -c)
 #count of recoverable failed audits
@@ -55,7 +55,7 @@ fi
 #fi
 
 
-echo -e "\e[96m========== DOWNLOAD =========== \e[0m"
+
 #count of successful downloads
 dl_success=$($LOG 2>&1 | grep '"GET"' | grep downloaded -c)
 #canceled Downloads from your node
@@ -85,7 +85,7 @@ else
 fi
 
 
-echo -e "\e[96m========== UPLOAD ============= \e[0m"
+
 #count of successful uploads to your node
 put_success=$($LOG 2>&1 | grep '"PUT"' | grep uploaded -c)
 #count of rejected uploads to your node
@@ -123,7 +123,7 @@ else
 	put_ratio=0.000
 fi
 
-echo -e "\e[96m========== REPAIR DOWNLOAD ==== \e[0m"
+
 #count of successful downloads of pieces for repair process
 get_repair_success=$($LOG 2>&1 | grep GET_REPAIR | grep downloaded -c)
 #count of failed downloads of pieces for repair process
@@ -158,7 +158,7 @@ echo -e "Cancel Rate:           $get_repair_canratio"
 echo -e "\e[92mSuccessful:            $get_repair_success \e[0m"
 echo -e "Success Rate:          $get_repair_ratio"
 
-echo -e "\e[96m========== REPAIR UPLOAD ====== \e[0m"
+
 #count of successful uploads of repaired pieces
 put_repair_success=$($LOG 2>&1 | grep PUT_REPAIR | grep uploaded -c)
 #count of canceled uploads repaired pieces
@@ -187,7 +187,6 @@ else
 	put_repair_ratio=0.000
 fi
 
-echo -e "\e[96m========== DELETE ============= \e[0m"
 #count of successful deletes
 delete_success=$($LOG 2>&1 | grep deleted -c)
 #count of failed deletes
@@ -217,5 +216,6 @@ echo "StorJHealth,NodeId=$node_id GETRepairFail=$get_repair_failed,GETRepairSucc
 #Health
 echo "StorJHealth,NodeId=$node_id InfoDBcheck=$infodb_check,VoucherCheck=$kad_check,Reboots=$reboots,Version=\"$version\" $(date +'%s%N')"
 
-
+#Clean /tmp LOG created with $(mktemp)
+rm $LOG
 
