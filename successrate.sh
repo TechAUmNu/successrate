@@ -2,7 +2,7 @@
 #A StorJ node monitor script for telegraf: Contains code contributed by: BrightSilence, turbostorjdsk / KernelPanick, Alexey
 
 LOG_SOURCE="${1}"
-TIMEFRAME="24h"
+#TIMEFRAME="24h"
 
 if [ -e "${LOG_SOURCE}" ]
 then
@@ -12,9 +12,10 @@ else
 	# assumes your docker container is named 'storagenode'. If not, pass it as the first argument, e.g.:
 	# bash successrate.sh mynodename
 	DOCKER_NODE_NAME="${1:-storagenode}"
-	LOG="docker logs --since $TIMEFRAME $DOCKER_NODE_NAME"
+	LOG="docker logs $DOCKER_NODE_NAME"
 fi
 
+echo $DOCKER_NODE_NAME
 
 #Get Node ID (NOTE: Head-n15 may prove to be unreliable for users that may archive early parts of the file,
 #since it's the fastest way, we'll leave it for now)
@@ -25,6 +26,7 @@ if [ -z "$node_id" ]
   then node_id="Default"
 fi
 
+echo $node_id
 #Node Success Rates
 
 
@@ -151,13 +153,6 @@ then
 else
 	get_repair_ratio=0.000
 fi
-echo -e "\e[91mFailed:                $get_repair_failed \e[0m"
-echo -e "Fail Rate:             $get_repair_failratio"
-echo -e "\e[33mCanceled:              $get_repair_canceled \e[0m"
-echo -e "Cancel Rate:           $get_repair_canratio"
-echo -e "\e[92mSuccessful:            $get_repair_success \e[0m"
-echo -e "Success Rate:          $get_repair_ratio"
-
 
 #count of successful uploads of repaired pieces
 put_repair_success=$($LOG 2>&1 | grep PUT_REPAIR | grep uploaded -c)
