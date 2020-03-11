@@ -102,7 +102,7 @@ then
 	put_accept_ratio=$( ($put_success + $put_canceled + $put_failed) / ( $put_rejected + $put_success + $put_canceled + $put_failed )) * 100
 else
 	put_accept_ratio=0.000
-#fi
+fi
 #Ratio of Failed
 #if [ $(($put_success+$put_rejected+$put_canceled+$put_failed)) -ge 1 ]
 #then
