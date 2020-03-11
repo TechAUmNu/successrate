@@ -15,8 +15,6 @@ else
 	LOG="docker logs $DOCKER_NODE_NAME"
 fi
 
-echo $DOCKER_NODE_NAME
-
 #Get Node ID (NOTE: Head-n15 may prove to be unreliable for users that may archive early parts of the file,
 #since it's the fastest way, we'll leave it for now)
 node_id=$(eval "docker logs storagenode" 2>&1| head -n15 | awk -F' ' '/Node/ && /started/{print substr($4,0,7)}')
@@ -26,7 +24,6 @@ if [ -z "$node_id" ]
   then node_id="Default"
 fi
 
-echo $node_id
 #Node Success Rates
 
 
